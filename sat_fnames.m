@@ -165,6 +165,7 @@ function [fname,filz] = sat_fnames(wdir,sdate,edate,type,res,tres)
     elseif strcmp(tres,'8day');
 %         tres_ext = '.L3m.8D';     
         tres_ext ='.L3m_8D';
+        %https://oceandata.sci.gsfc.nasa.gov/cgi/getfile/A20021852002192.L3m_8D_CHL_chlor_a_9km.nc
         sdates = datenum(str2num(datestr(sdate,'yyyy')),0,1:8:366);
         sdates = sdates(find(sdates>=sdate & sdates<=edate));
         for kk = 1:numel(sdates)
