@@ -92,8 +92,14 @@ if sf(1) ~= 0
                     dat = ncread(fn,'sst',[lo(1),la(1)],[length(lo),length(la)]);
                     satdat(jj,:,:) = dat';
                 elseif strcmp(type, 'chl');
-%                     dat = ncread(fn,'chl_ocx',[lo(1),la(1)],[length(lo),length(la)]);
-                    dat = ncread(fn,'chlor_a',[lo(1),la(1)],[length(lo),length(la)]);
+                    x = ncinfo(fn);
+                    x = x.Variables(1).Name;
+                    if strcmp(x,'chl_ocx')
+                        dat = ncread(fn,'chl_ocx',[lo(1),la(1)],[length(lo),length(la)]);
+                    elseif strcmp(x,'chlor_a');
+                        dat = ncread(fn,'chlor_a',[lo(1),la(1)],[length(lo),length(la)]);
+                    end
+                    clear x
                     satdat(jj,:,:) = dat';
                 elseif strcmp(type, 'cal');
                     dat = ncread(fn,'pic',[lo(1),la(1)],[length(lo),length(la)]);

@@ -124,7 +124,7 @@ function [fname,filz] = sat_fnames(wdir,sdate,edate,type,res,tres)
     %MODIS-Aqua vs SEAWiFS
     if sdate > datenum(2012,01,02) %VIIRS
         sat{1} = 'V'; 
-        sat{2} = 'SNPP';
+        sat{2} = '_SNPP';
         satl = 'VIIRS_SNPP';
     elseif sdate > datenum(2002,07,04) %MODIS-Aqua
         sat{1} = 'A';

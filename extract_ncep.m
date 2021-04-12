@@ -116,10 +116,18 @@ function [dat]=extract_ncep(ndir,t0,tf,latr,lonr,type);
                 clear li t_start
         end
         
-        %Get data within specified time / lat / long ranges
-            dat.(var(kk,:)) = double(ncread(fname(kk).name,var(kk,:),[lo(1), la(1), ti(1)], [length(lo), length(la), length(ti)]));
-            dat.(var(kk,:)) = permute(dat.(var(kk,:)),[3,2,1]);
-            
+        yyyy=str2num(datestr(dat.mdate(1),'yyyy'));
+        if yyyy <= 2012; 
+         %Get data within specified time / lat / long ranges
+            dat.(var(kk,:)) = squeeze(double(ncread(fname(kk).name,var(kk,:),[lo(1), la(1), 1, ti(1)], [length(lo), length(la), 1, length(ti)])));
+                dat.(var(kk,:)) = permute(dat.(var(kk,:)),[3,2,1]);
+
+        else        
+            %Get data within specified time / lat / long ranges
+                dat.(var(kk,:)) = double(ncread(fname(kk).name,var(kk,:),[lo(1), la(1), ti(1)], [length(lo), length(la), length(ti)]));
+                dat.(var(kk,:)) = permute(dat.(var(kk,:)),[3,2,1]);
+        end            
+        
         %unit conversions
             if strcmp(type,'slp')
                 dat.(var(kk,:)) = dat.(var(kk,:)) .* 0.01; %Pa --> mbar
