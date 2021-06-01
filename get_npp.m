@@ -172,11 +172,12 @@ cd(ndir);
     tfs = dir('*.tar');
     for kk = 1:numel(tfs)
         if ispc
-            str = ['7z e ', tfs(kk).name];
+%             str = ['7z e ', tfs(kk).name];
+            untar(tfs(kk).name);
         else
             str = ['uncompress', ' ', tfs(kk).name];
+            system(str)
         end
-        system(str);
     end
     
     gfs = dir('*.gz');
